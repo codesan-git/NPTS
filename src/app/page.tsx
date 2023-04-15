@@ -1,11 +1,37 @@
-'use client'
-import { Textarea } from '@chakra-ui/react'
+import {
+  LoginButton,
+  LogoutButton,
+  ProfileButton,
+  RegisterButton,
+} from "@/components/buttons.component";
+import { getServerSession } from "next-auth";
+import { authOptions } from "./api/auth/[...nextauth]/route";
+import { User } from "@/components/user.component";
 
-export default function Home() {
+export default async function Home() {
+  const session = await getServerSession(authOptions);
+  console.log(session);
+
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <p className='text-red-500 text-center'>Welcome To NPTS</p>
-      <Textarea resize={'none'} placeholder='Please text anything here...'/>
+    <main
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        height: "70vh",
+      }}
+    >
+      <div>
+        <LoginButton />
+        <RegisterButton />
+        <LogoutButton />
+        <ProfileButton />
+
+        <h1>Server Session</h1>
+        <pre>{JSON.stringify(session)}</pre>
+
+        <User />
+      </div>
     </main>
-  )
+  );
 }
