@@ -1,4 +1,4 @@
-import { Providers } from "./providers";
+import { Providers, NextAuthProvider } from "./providers";
 import "./globals.css";
 
 export const metadata = {
@@ -14,7 +14,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <Providers>{children}</Providers>
+        <NextAuthProvider>
+          <Providers>{children}</Providers>
+        </NextAuthProvider>
       </body>
     </html>
   );
